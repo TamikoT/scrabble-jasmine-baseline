@@ -3,16 +3,16 @@ import Backbone from 'backbone';
 import Word from 'models/word';
 import WordView from 'views/word_view';
 
+
 var ApplicationView = Backbone.View.extend({
   initialize: function() {
     this.wordListElement = this.$('#word-list tbody');
     this.newWordInput = this.$('#new-word-form input[name=word]');
 
-    // Maintain a list of views, to cut down
-    // on re-rendering time
+    // Maintain a list of views, to cut down on re-rendering time
     this.wordViews = [];
     this.model.each((word) => {
-      this.addWord(word);
+      this.addWord(word); //adds WordViews
     });
 
     this.listenTo(this.model, 'add', this.addWord);

@@ -33,7 +33,7 @@ const LETTERS = {
 var Word = Backbone.Model.extend({
   initialize: function() {
     // Always use lowercase letters
-    var text = this.get('text');
+    var text = this.get('text'); // because it's initialized as new Word({ text: text });
     if (text && typeof text == 'string') {
       this.set('text', text.toLowerCase());
     }
@@ -75,12 +75,12 @@ var Word = Backbone.Model.extend({
     }
 
     if (text.length > 7) {
-      return "Pleas type a word with 7 or fewer letters";
+      return "Please type a word with 7 or fewer letters";
     }
 
     var badChars = []
     for (let i = 0; i < text.length; i++) {
-      if (!_.has(LETTERS, text[i])) {
+      if (!_.has(LETTERS, text[i])) { //underscore helper method looks through LETTER and checks it has key
         badChars.push(text[i]);
       }
     }
@@ -90,8 +90,15 @@ var Word = Backbone.Model.extend({
   },
 
   score: function() {
-    // TODO: test and implement
-    return 0;
+    var text = this.get('text');
+    var score = 0;
+    if (text.length === 7) {
+      score += 50;
+    }
+    for (let i = 0; i < text.length; i++) {
+      score += LETTERS[text[i]];
+    }
+    return score;
   }
 });
 

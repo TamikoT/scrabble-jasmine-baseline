@@ -29,8 +29,8 @@ describe('Word', function() {
       _.each(['dog', 'DOG', 'DoG'], (text) => {
         var word = new Word({ text: text });
         expect(word.isValid()).toBeTruthy('word: ' + text + ', error: ' + word.validationError);
-      })
-    })
+      });
+    });
 
     it ('requires text', function() {
       var word = new Word();
@@ -56,8 +56,8 @@ describe('Word', function() {
       var word = new Word({ text: 'abcdefg' });
       expect(word.isValid()).toBeTruthy();
 
-      var word = new Word({ text: 'abcdefgh' });
-      expect(word.isValid()).toBeFalsy();
+      var longWord = new Word({ text: 'abcdefgh' });
+      expect(longWord.isValid()).toBeFalsy();
     });
 
     it ('rejects things other than letters', function() {
@@ -74,15 +74,18 @@ describe('Word', function() {
 
   describe('score', function() {
     it ('Correctly scores simple words', function() {
-      // TODO
+      var word = new Word({text: 'zzz'});
+      expect(word.score()).toEqual(30);
     });
 
     it ('Adds 50 points for a 7-letter word', function() {
-      // TODO
+      var word = new Word({text: 'zzzzzzz'});
+      expect(word.score()).toEqual(120);
     });
 
     it ('Returns undefined if the word is invalid', function() {
-      // TODO
+      var word = new Word({text: 'zzzzzzzz'});
+      expect(word.score()).toEqual(undefined);
     });
   });
 });
